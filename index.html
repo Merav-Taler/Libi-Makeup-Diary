@@ -939,6 +939,195 @@
             transform: scale(1.02);
         }
 
+        /* ===== VIRTUAL CLOSET ===== */
+        .closet-hero { text-align: center; padding: 16px 10px 8px; }
+        .closet-hero h2 { font-size: 22px; color: var(--pink-dark); margin: 6px 0; }
+        .closet-hero p { font-size: 13px; color: var(--text-light); }
+
+        .closet-actions { display: flex; gap: 10px; margin-bottom: 16px; }
+        .closet-actions > * { flex: 1; }
+
+        .closet-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .closet-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .closet-item:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+        .closet-item-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+        }
+
+        .closet-item-info {
+            padding: 6px 8px;
+            text-align: center;
+        }
+
+        .closet-item-name {
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .closet-item-cat {
+            font-size: 10px;
+            color: var(--text-light);
+        }
+
+        .closet-item-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            font-size: 16px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .closet-item-color {
+            position: absolute;
+            bottom: 42px;
+            left: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+
+        .closet-item-delete {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .closet-item:hover .closet-item-delete { display: flex; }
+
+        /* Outfit result cards */
+        .outfit-result-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .outfit-result-header {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            padding: 14px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .outfit-result-header .vibe { font-size: 28px; }
+        .outfit-result-header h3 { font-size: 17px; font-weight: 700; flex: 1; }
+
+        .outfit-result-items {
+            display: flex;
+            gap: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            justify-content: center;
+        }
+
+        .outfit-result-thumb {
+            width: 90px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .outfit-result-thumb img {
+            width: 80px;
+            height: 80px;
+            border-radius: 14px;
+            object-fit: cover;
+            border: 3px solid var(--pink-light);
+        }
+
+        .outfit-result-thumb span {
+            display: block;
+            font-size: 10px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .outfit-result-tip {
+            padding: 14px 20px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text);
+            border-top: 1px solid #f5e5f5;
+            background: #fdf8fc;
+        }
+
+        .outfit-result-tip .tip-emoji { margin-left: 6px; }
+
+        .outfit-results-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--purple);
+            margin: 24px 0 16px;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .generate-btn:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4); }
+        .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .closet-count-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 6px;
+        }
+
         /* ===== ADVISOR SECTION ===== */
         .advisor-hero {
             text-align: center;
@@ -1159,6 +1348,13 @@
             .adv-opt { min-width: 60px; padding: 8px 10px; }
             .adv-opt-circle { width: 30px; height: 30px; }
             .adv-result-photo { height: 200px; }
+            .closet-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .outfit-result-thumb img { width: 70px; height: 70px; }
+        }
+
+        @media (max-width: 400px) {
+            .closet-grid { grid-template-columns: repeat(2, 1fr); }
+            .closet-actions { flex-direction: column; }
         }
 
         /* ===== FILTER BAR ===== */
@@ -1295,6 +1491,7 @@
     <!-- Tabs -->
     <div class="tabs">
         <button class="tab-btn active" onclick="switchTab('looks')">🎨 הלוקים שלי</button>
+        <button class="tab-btn" onclick="switchTab('closet')">👚 ארון בגדים</button>
         <button class="tab-btn" onclick="switchTab('advisor')">🪞 יועצת איפור</button>
         <button class="tab-btn" onclick="switchTab('products')">💄 מוצרים</button>
         <button class="tab-btn" onclick="switchTab('wishlist')">🎁 רשימת משאלות</button>
@@ -1310,6 +1507,29 @@
 
             <div class="filter-bar" id="looks-filters"></div>
             <div id="looks-list"></div>
+        </div>
+
+        <!-- CLOSET SECTION -->
+        <div class="section" id="sec-closet">
+            <div class="closet-hero">
+                <div style="font-size:48px">👚✨</div>
+                <h2>הארון שלי</h2>
+                <p>העלי תמונות של הבגדים שלך וקבלי רעיונות לשילובים!</p>
+            </div>
+
+            <div class="closet-actions">
+                <button class="add-look-btn" onclick="showAddClosetItem()" style="margin:0">📸 הוסיפי בגד</button>
+            </div>
+
+            <button class="generate-btn" id="generate-outfits-btn" onclick="generateOutfits()" disabled>
+                ✨ תייצרי לי לוקים! ✨
+                <span class="closet-count-badge" id="closet-count-badge">0 פריטים</span>
+            </button>
+
+            <div class="filter-bar" id="closet-filters"></div>
+            <div id="closet-grid" class="closet-grid"></div>
+
+            <div id="outfit-results-container"></div>
         </div>
 
         <!-- ADVISOR SECTION -->
@@ -1674,6 +1894,61 @@
         </div>
     </div>
 
+    <!-- Add Closet Item Form Overlay -->
+    <div class="form-overlay" id="closet-item-form">
+        <div class="form-card">
+            <h2>👚 הוסיפי בגד לארון</h2>
+
+            <div class="form-group">
+                <label>📸 צלמי את הבגד</label>
+                <div class="photo-upload" id="closet-photo-upload" onclick="document.getElementById('closet-photo-input').click()">
+                    <div class="upload-text">📷</div>
+                    <div class="upload-label">לחצי לצילום או העלאת תמונה</div>
+                    <input type="file" id="closet-photo-input" accept="image/*" capture="environment" onchange="previewPhoto(this, 'closet-photo-upload')">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>🏷️ סוג בגד</label>
+                <div class="tag-selector" id="closet-category-tags"></div>
+            </div>
+
+            <div class="form-group">
+                <label>💖 שם (אופציונלי)</label>
+                <input type="text" id="closet-item-name" placeholder="למשל: החולצה הורודה עם הפרחים">
+            </div>
+
+            <div class="form-group">
+                <label>🎨 צבע עיקרי</label>
+                <div class="color-pick-grid" id="closet-item-color">
+                    <span class="color-pick-option" style="background:#FFFFFF;border-color:#ddd" data-color="#FFFFFF" data-cname="לבן" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#2D3436" data-color="#2D3436" data-cname="שחור" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#636E72" data-color="#636E72" data-cname="אפור" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#DFE6E9" data-color="#DFE6E9" data-cname="אפור בהיר" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#0984E3" data-color="#0984E3" data-cname="כחול" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#74B9FF" data-color="#74B9FF" data-cname="תכלת" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#FF6B6B" data-color="#FF6B6B" data-cname="אדום" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#FF69B4" data-color="#FF69B4" data-cname="ורוד" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#FF1493" data-color="#FF1493" data-cname="ורוד חזק" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#A855F7" data-color="#A855F7" data-cname="סגול" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#55EFC4" data-color="#55EFC4" data-cname="מנטה" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#00CEC9" data-color="#00CEC9" data-cname="טורקיז" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#FFEAA7" data-color="#FFEAA7" data-cname="צהוב" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#E17055" data-color="#E17055" data-cname="כתום" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#A0522D" data-color="#A0522D" data-cname="חום" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#FDCB6E" data-color="#FDCB6E" data-cname="זהב" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#D63031" data-color="#D63031" data-cname="בורדו" onclick="pickClosetColor(this)"></span>
+                    <span class="color-pick-option" style="background:#6C5CE7" data-color="#6C5CE7" data-cname="סגול כהה" onclick="pickClosetColor(this)"></span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="saveClosetItem()">💾 שמירה</button>
+                <button class="btn btn-secondary" onclick="closeForm('closet-item-form')">ביטול</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Build Look Form Overlay -->
     <div class="form-overlay" id="build-look-form">
         <div class="form-card">
@@ -1797,7 +2072,7 @@
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) return JSON.parse(saved);
         } catch(e) {}
-        return { looks: [], products: [], wishlist: [], myLooks: [], settings: {} };
+        return { looks: [], products: [], wishlist: [], myLooks: [], closet: { items: [], outfitResults: [] }, settings: {} };
     }
 
     function saveData() {
@@ -1814,6 +2089,7 @@
 
         if (tab === 'tips') renderTips();
         if (tab === 'outfits') { renderOutfits(); renderMyLooks(); }
+        if (tab === 'closet') renderCloset();
     }
 
     // ===== RATING =====
@@ -2185,6 +2461,379 @@
                 <p>${tip.text}</p>
             </div>
         `).join('');
+    }
+
+    // ===== VIRTUAL CLOSET =====
+    const CLOSET_CATS = [
+        { key: 'tops', label: 'חולצות', emoji: '👚' },
+        { key: 'pants', label: 'מכנסיים', emoji: '👖' },
+        { key: 'dresses', label: 'שמלות', emoji: '👗' },
+        { key: 'skirts', label: 'חצאיות', emoji: '🩳' },
+        { key: 'shoes', label: 'נעליים', emoji: '👟' },
+        { key: 'jackets', label: "ז'קטים", emoji: '🧥' },
+        { key: 'accessories', label: 'שרשראות / אביזרים', emoji: '📿' },
+        { key: 'bags', label: 'תיקים', emoji: '👜' }
+    ];
+
+    // Color compatibility rules
+    const COLOR_GROUPS = {
+        neutral: ['#FFFFFF', '#2D3436', '#636E72', '#DFE6E9', '#A0522D'],
+        warm:    ['#FF6B6B', '#E17055', '#FFEAA7', '#FDCB6E', '#D63031', '#FF1493', '#FF69B4'],
+        cool:    ['#0984E3', '#74B9FF', '#A855F7', '#6C5CE7', '#00CEC9', '#55EFC4']
+    };
+
+    function getColorGroup(hex) {
+        for (const [group, colors] of Object.entries(COLOR_GROUPS)) {
+            if (colors.includes(hex)) return group;
+        }
+        return 'neutral';
+    }
+
+    function colorsMatch(c1, c2) {
+        if (!c1 || !c2) return true; // no color = always matches
+        const g1 = getColorGroup(c1), g2 = getColorGroup(c2);
+        if (g1 === 'neutral' || g2 === 'neutral') return true;
+        return g1 === g2; // warm+warm or cool+cool
+    }
+
+    function initCloset() {
+        if (!DATA.closet) DATA.closet = { items: [], outfitResults: [] };
+        if (!DATA.closet.items) DATA.closet.items = [];
+        if (!DATA.closet.outfitResults) DATA.closet.outfitResults = [];
+    }
+
+    function compressImage(base64Src, maxW = 400, quality = 0.6) {
+        return new Promise(resolve => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let w = img.width, h = img.height;
+                if (w > maxW) { h = h * (maxW / w); w = maxW; }
+                if (h > maxW) { w = w * (maxW / h); h = maxW; }
+                canvas.width = w;
+                canvas.height = h;
+                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                resolve(canvas.toDataURL('image/jpeg', quality));
+            };
+            img.src = base64Src;
+        });
+    }
+
+    function pickClosetColor(el) {
+        document.querySelectorAll('#closet-item-color .color-pick-option').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    function showAddClosetItem() {
+        initCloset();
+        document.getElementById('closet-item-form').classList.add('show');
+        document.getElementById('closet-item-name').value = '';
+        // Reset photo
+        const pc = document.getElementById('closet-photo-upload');
+        const ex = pc.querySelector('img');
+        if (ex) ex.remove();
+        pc.querySelector('.upload-text').style.display = '';
+        pc.querySelector('.upload-label').style.display = '';
+        document.getElementById('closet-photo-input').value = '';
+        // Reset color
+        document.querySelectorAll('#closet-item-color .color-pick-option').forEach(c => c.classList.remove('selected'));
+        // Build category tags
+        const catContainer = document.getElementById('closet-category-tags');
+        catContainer.innerHTML = CLOSET_CATS.map(c =>
+            `<span class="tag-option" data-key="${c.key}" onclick="selectClosetCat(this)">${c.emoji} ${c.label}</span>`
+        ).join('');
+    }
+
+    function selectClosetCat(el) {
+        el.parentElement.querySelectorAll('.tag-option').forEach(t => t.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    async function saveClosetItem() {
+        initCloset();
+        const selectedCat = document.querySelector('#closet-category-tags .tag-option.selected');
+        if (!selectedCat) { toast('בחרי סוג בגד! 🏷️'); return; }
+
+        const img = document.getElementById('closet-photo-upload').querySelector('img');
+        if (!img) { toast('צריך תמונה של הבגד! 📸'); return; }
+
+        const selectedColor = document.querySelector('#closet-item-color .color-pick-option.selected');
+        const cat = CLOSET_CATS.find(c => c.key === selectedCat.dataset.key);
+
+        // Compress photo
+        toast('דוחס תמונה... 📷');
+        const compressed = await compressImage(img.src);
+
+        const item = {
+            id: 'ci_' + Date.now(),
+            category: selectedCat.dataset.key,
+            name: document.getElementById('closet-item-name').value.trim() || cat.label,
+            photo: compressed,
+            color: selectedColor ? selectedColor.dataset.color : '',
+            colorName: selectedColor ? selectedColor.dataset.cname : '',
+            createdAt: Date.now()
+        };
+
+        DATA.closet.items.push(item);
+        saveData();
+        renderCloset();
+        closeForm('closet-item-form');
+        toast(`${cat.emoji} נוסף לארון!`);
+    }
+
+    function deleteClosetItem(id) {
+        if (!confirm('למחוק את הבגד הזה מהארון?')) return;
+        DATA.closet.items = DATA.closet.items.filter(i => i.id !== id);
+        saveData();
+        renderCloset();
+        toast('הבגד הוסר מהארון');
+    }
+
+    let closetFilter = 'all';
+
+    function renderCloset() {
+        initCloset();
+        const items = DATA.closet.items;
+
+        // Update generate button
+        const genBtn = document.getElementById('generate-outfits-btn');
+        const badge = document.getElementById('closet-count-badge');
+        const hasEnough = items.length >= 3;
+        genBtn.disabled = !hasEnough;
+        badge.textContent = `${items.length} פריטים`;
+
+        // Filters
+        const filtersDiv = document.getElementById('closet-filters');
+        const usedCats = [...new Set(items.map(i => i.category))];
+        filtersDiv.innerHTML = `
+            <button class="filter-chip ${closetFilter === 'all' ? 'active' : ''}" onclick="filterCloset('all')">הכל (${items.length})</button>
+            ${usedCats.map(key => {
+                const cat = CLOSET_CATS.find(c => c.key === key);
+                const count = items.filter(i => i.category === key).length;
+                return `<button class="filter-chip ${closetFilter === key ? 'active' : ''}" onclick="filterCloset('${key}')">${cat ? cat.emoji : ''} ${cat ? cat.label : key} (${count})</button>`;
+            }).join('')}
+        `;
+
+        // Grid
+        const filtered = closetFilter === 'all' ? items : items.filter(i => i.category === closetFilter);
+        const grid = document.getElementById('closet-grid');
+
+        if (items.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state" style="grid-column:1/-1">
+                    <div class="emoji">👚</div>
+                    <h3>הארון ריק!</h3>
+                    <p>הוסיפי את הבגדים שלך כדי לקבל רעיונות לשילובים</p>
+                </div>`;
+            return;
+        }
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="emoji">🔍</div><h3>אין פריטים בקטגוריה הזו</h3></div>`;
+            return;
+        }
+
+        grid.innerHTML = filtered.map(item => {
+            const cat = CLOSET_CATS.find(c => c.key === item.category);
+            return `
+                <div class="closet-item">
+                    <span class="closet-item-badge">${cat ? cat.emoji : ''}</span>
+                    <button class="closet-item-delete" onclick="event.stopPropagation(); deleteClosetItem('${item.id}')">✕</button>
+                    <img class="closet-item-photo" src="${item.photo}" alt="${item.name}" loading="lazy">
+                    ${item.color ? `<span class="closet-item-color" style="background:${item.color}"></span>` : ''}
+                    <div class="closet-item-info">
+                        <div class="closet-item-name">${item.name}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Show saved outfits
+        renderSavedOutfits();
+    }
+
+    function filterCloset(cat) {
+        closetFilter = cat;
+        renderCloset();
+    }
+
+    // ===== SMART OUTFIT GENERATOR =====
+    function generateOutfits() {
+        initCloset();
+        const items = DATA.closet.items;
+        if (items.length < 3) { toast('הוסיפי לפחות 3 פריטים לארון! 👚👖👟'); return; }
+
+        const tops = items.filter(i => i.category === 'tops');
+        const pants = items.filter(i => i.category === 'pants');
+        const dresses = items.filter(i => i.category === 'dresses');
+        const skirts = items.filter(i => i.category === 'skirts');
+        const shoes = items.filter(i => i.category === 'shoes');
+        const jackets = items.filter(i => i.category === 'jackets');
+        const accessories = items.filter(i => i.category === 'accessories');
+        const bags = items.filter(i => i.category === 'bags');
+
+        const bottoms = [...pants, ...skirts];
+        const outfits = [];
+
+        const vibes = ['💫', '🌟', '✨', '🔥', '💕', '🌈', '👑', '🎀', '💎', '🌸'];
+        const outfitNames = [
+            'לוק של כוכבת', 'סטייל מושלם', 'שילוב מנצח', 'לוק של מלכה',
+            'אופנה ברחוב', 'קלאסית ושיקית', 'צבעונית ומגניבה', 'נוחות בסטייל',
+            'לוק ליום מיוחד', 'פשוט ומדהים', 'שיק בלי מאמץ', 'לוק מפתיע'
+        ];
+
+        // Strategy 1: Top + Bottom combos
+        if (tops.length > 0 && bottoms.length > 0) {
+            for (let t = 0; t < tops.length && outfits.length < 6; t++) {
+                for (let b = 0; b < bottoms.length && outfits.length < 6; b++) {
+                    if (!colorsMatch(tops[t].color, bottoms[b].color) && Math.random() > 0.3) continue;
+                    const combo = [tops[t], bottoms[b]];
+                    // Add a shoe if available
+                    if (shoes.length > 0) {
+                        const shoe = shoes[Math.floor(Math.random() * shoes.length)];
+                        combo.push(shoe);
+                    }
+                    // Maybe add accessory
+                    if (accessories.length > 0 && Math.random() > 0.4) {
+                        const acc = accessories[Math.floor(Math.random() * accessories.length)];
+                        combo.push(acc);
+                    }
+                    // Maybe add jacket
+                    if (jackets.length > 0 && Math.random() > 0.6) {
+                        combo.push(jackets[Math.floor(Math.random() * jackets.length)]);
+                    }
+                    outfits.push(combo);
+                }
+            }
+        }
+
+        // Strategy 2: Dress combos
+        if (dresses.length > 0) {
+            for (const dress of dresses) {
+                if (outfits.length >= 8) break;
+                const combo = [dress];
+                if (shoes.length > 0) combo.push(shoes[Math.floor(Math.random() * shoes.length)]);
+                if (accessories.length > 0) combo.push(accessories[Math.floor(Math.random() * accessories.length)]);
+                if (bags.length > 0 && Math.random() > 0.5) combo.push(bags[Math.floor(Math.random() * bags.length)]);
+                outfits.push(combo);
+            }
+        }
+
+        // Shuffle and pick up to 5
+        const shuffled = outfits.sort(() => Math.random() - 0.5).slice(0, 5);
+
+        if (shuffled.length === 0) {
+            toast('צריך לפחות חולצה + מכנסיים או שמלה כדי ליצור לוקים! 👚👖');
+            return;
+        }
+
+        // Generate tips per outfit
+        const results = shuffled.map((combo, i) => {
+            const tip = generateOutfitTip(combo);
+            return {
+                id: 'out_' + Date.now() + '_' + i,
+                name: outfitNames[i % outfitNames.length],
+                vibe: vibes[i % vibes.length],
+                items: combo.map(c => c.id),
+                tip,
+                createdAt: Date.now()
+            };
+        });
+
+        DATA.closet.outfitResults = results;
+        saveData();
+        renderCloset();
+        toast('הנה הלוקים שלך! ✨');
+        miniConfetti();
+
+        // Scroll to results
+        setTimeout(() => {
+            document.getElementById('outfit-results-container').scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+    }
+
+    function generateOutfitTip(combo) {
+        const cats = combo.map(c => c.category);
+        const colors = combo.filter(c => c.color).map(c => c.colorName || '');
+        const colorStr = colors.filter(Boolean).join(' + ');
+
+        const tips = [];
+
+        // Color harmony tip
+        const colorGroups = combo.filter(c => c.color).map(c => getColorGroup(c.color));
+        const hasWarm = colorGroups.includes('warm');
+        const hasCool = colorGroups.includes('cool');
+        if (hasWarm && hasCool) {
+            tips.push('💡 השילוב של צבעים חמים וקרים ביחד יוצר מראה מעניין ומיוחד!');
+        } else if (hasWarm) {
+            tips.push('🌅 כל הצבעים חמים - מראה שמחייה ורענן!');
+        } else if (hasCool) {
+            tips.push('🌊 צבעים קרים ביחד - מראה שיקי ומרגיע!');
+        }
+
+        // Category-based tips
+        if (cats.includes('accessories')) {
+            tips.push('📿 האביזר מוסיף נקודת עניין ומשדרג את הלוק!');
+        }
+        if (cats.includes('jackets')) {
+            tips.push("🧥 הז'קט מוסיף שכבה - גם חמים וגם שיקיות!");
+        }
+        if (cats.includes('dresses')) {
+            tips.push('👗 שמלה זה תמיד קל ויפה - אין מה לחשוב!');
+        }
+
+        // Style tips
+        const randomTips = [
+            '✨ טיפ: קפלי את השרוולים או תכניסי קצה של החולצה למכנסיים למראה יותר מסודר',
+            '👟 טיפ: נעליים בצבע ניטרלי (שחור/לבן) מתאימות לכל שילוב',
+            '🎀 טיפ: תוסיפי גומיית שיער או סרט בצבע מתאים להשלמת הלוק',
+            '💫 טיפ: פחות זה יותר - אם הבגד צבעוני, האביזרים פשוטים',
+            '🌟 טיפ: תמיד תלבשי מה שנוח לך - ביטחון עצמי זה האביזר הכי יפה!'
+        ];
+        tips.push(randomTips[Math.floor(Math.random() * randomTips.length)]);
+
+        if (colorStr) tips.unshift(`🎨 צבעים: ${colorStr}`);
+
+        return tips.join('\n');
+    }
+
+    function renderSavedOutfits() {
+        const container = document.getElementById('outfit-results-container');
+        const results = DATA.closet.outfitResults || [];
+
+        if (results.length === 0) {
+            container.innerHTML = '';
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="outfit-results-title">✨ הלוקים שנוצרו ✨</div>
+            ${results.map(outfit => {
+                const outfitItems = outfit.items.map(id => DATA.closet.items.find(i => i.id === id)).filter(Boolean);
+                if (outfitItems.length === 0) return '';
+
+                return `
+                    <div class="outfit-result-card">
+                        <div class="outfit-result-header">
+                            <span class="vibe">${outfit.vibe}</span>
+                            <h3>${outfit.name}</h3>
+                        </div>
+                        <div class="outfit-result-items">
+                            ${outfitItems.map(item => {
+                                const cat = CLOSET_CATS.find(c => c.key === item.category);
+                                return `
+                                    <div class="outfit-result-thumb">
+                                        <img src="${item.photo}" alt="${item.name}" loading="lazy">
+                                        <span>${cat ? cat.emoji : ''} ${item.name}</span>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        <div class="outfit-result-tip">${outfit.tip.replace(/\n/g, '<br>')}</div>
+                    </div>
+                `;
+            }).join('')}
+        `;
     }
 
     // ===== MAKEUP ADVISOR =====
