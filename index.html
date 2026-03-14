@@ -7,8 +7,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#ff6b9d">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💄</text></svg>">
-    <title>💄 היומן שלי - ליבי</title>
+    <title>💄 יומן האיפור שלי</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Varela+Round&display=swap" rel="stylesheet">
+    <script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" crossorigin="anonymous"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js" crossorigin="anonymous"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js" crossorigin="anonymous"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1404,6 +1407,91 @@
             font-size: 14px;
         }
 
+        /* ===== LOGIN SCREEN ===== */
+        .login-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #ff6b9d, #a855f7, #6c5ce7);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        .login-screen.hidden { display: none; }
+
+        .login-logo { font-size: 80px; margin-bottom: 16px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2)); }
+        .login-title { font-size: 32px; font-weight: 900; margin-bottom: 8px; text-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+        .login-sub { font-size: 16px; opacity: 0.9; margin-bottom: 40px; }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 32px;
+            background: white;
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .google-btn:hover { transform: scale(1.05); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+
+        .google-btn img {
+            width: 22px;
+            height: 22px;
+        }
+
+        .login-status {
+            margin-top: 16px;
+            font-size: 14px;
+            opacity: 0.9;
+            min-height: 20px;
+        }
+
+        /* Header user info */
+        .header-user {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .header-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.6);
+        }
+
+        .header-logout {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .header-logout:hover { background: rgba(255,255,255,0.35); }
+
+        .app-wrap { display: none; }
+        .app-wrap.show { display: block; }
+
         /* ===== TOAST ===== */
         .toast {
             position: fixed;
@@ -1477,14 +1565,34 @@
     </style>
 </head>
 <body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="login-screen">
+        <div class="login-logo">💄</div>
+        <div class="login-title">יומן האיפור שלי</div>
+        <div class="login-sub">הלוקים, המוצרים והסטייל - הכל במקום אחד ✨</div>
+        <button class="google-btn" id="google-btn" onclick="signInWithGoogle()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+            התחברי עם גוגל
+        </button>
+        <div class="login-status" id="login-status"></div>
+    </div>
+
+    <!-- App Wrapper (hidden until logged in) -->
+    <div class="app-wrap" id="app-wrap">
+
     <!-- Header -->
     <div class="header">
-        <h1>💄 היומן של ליבי</h1>
+        <h1 id="app-title">💄 היומן שלי</h1>
         <p>כל הלוקים, המוצרים והטיפים שלי ✨</p>
         <div class="stats-bar">
             <span class="stat-item" id="stat-looks">🎨 0 לוקים</span>
             <span class="stat-item" id="stat-products">💋 0 מוצרים</span>
             <span class="stat-item" id="stat-favs">⭐ 0 מועדפים</span>
+        </div>
+        <div class="header-user" id="header-user" style="display:none">
+            <img class="header-avatar" id="header-avatar" src="" alt="">
+            <span id="header-name" style="font-size:13px"></span>
+            <button class="header-logout" onclick="signOutUser()">יציאה</button>
         </div>
     </div>
 
@@ -2059,25 +2167,63 @@
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
+    </div><!-- /app-wrap -->
+
     <!-- Confetti -->
     <canvas id="confetti"></canvas>
 
     <script>
-    // ===== DATA =====
-    const STORAGE_KEY = 'libi_makeup_diary';
-    let DATA = loadData();
+    // ===== FIREBASE CONFIG =====
+    const FB_CONFIG = {
+        apiKey: "AIzaSyBHc93GqulX-akadMy21WxkvxWyHMD6k_I",
+        authDomain: "budgettoolauth.firebaseapp.com",
+        databaseURL: "https://budgettoolauth-default-rtdb.firebaseio.com",
+        projectId: "budgettoolauth",
+        storageBucket: "budgettoolauth.firebasestorage.app",
+        messagingSenderId: "84493564363",
+        appId: "1:84493564363:web:5589784749c651faae9e4e"
+    };
 
-    function loadData() {
+    let fbApp, fbAuth, fbDb, fbUser, fbRef;
+    let skipSync = false;
+    let saveTimer;
+
+    // ===== DATA =====
+    const DEFAULT_DATA = { looks: [], products: [], wishlist: [], myLooks: [], closet: { items: [], outfitResults: [] }, settings: {} };
+    let DATA = { ...DEFAULT_DATA };
+
+    function getStorageKey() {
+        return fbUser ? 'libi_diary_' + fbUser.uid : 'libi_makeup_diary';
+    }
+
+    function loadDataLocal() {
         try {
-            const saved = localStorage.getItem(STORAGE_KEY);
+            const saved = localStorage.getItem(getStorageKey());
             if (saved) return JSON.parse(saved);
         } catch(e) {}
-        return { looks: [], products: [], wishlist: [], myLooks: [], closet: { items: [], outfitResults: [] }, settings: {} };
+        return { ...DEFAULT_DATA, looks: [], products: [], wishlist: [], myLooks: [], closet: { items: [], outfitResults: [] }, settings: {} };
     }
 
     function saveData() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+        // Save to localStorage
+        try {
+            localStorage.setItem(getStorageKey(), JSON.stringify(DATA));
+        } catch(e) { console.warn('localStorage save error:', e); }
         updateStats();
+
+        // Save to Firebase (debounced)
+        if (fbRef && fbUser) {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(() => {
+                skipSync = true;
+                fbRef.set(DATA).then(() => {
+                    setTimeout(() => { skipSync = false; }, 500);
+                }).catch(e => {
+                    console.warn('Firebase save failed:', e);
+                    skipSync = false;
+                });
+            }, 500);
+        }
     }
 
     // ===== TABS =====
@@ -3523,11 +3669,146 @@
         });
     });
 
+    // ===== AUTH & FIREBASE =====
+    function signInWithGoogle() {
+        if (!fbAuth) { document.getElementById('login-status').textContent = 'Firebase לא מוגדר...'; return; }
+        document.getElementById('login-status').textContent = 'מתחברת...';
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+        fbAuth.signInWithPopup(provider).catch(err => {
+            if (err.code === 'auth/popup-blocked') {
+                fbAuth.signInWithRedirect(provider);
+            } else {
+                document.getElementById('login-status').textContent = 'שגיאה: ' + err.message;
+            }
+        });
+    }
+
+    function signOutUser() {
+        if (fbAuth) fbAuth.signOut();
+        fbUser = null;
+        fbRef = null;
+        DATA = { ...DEFAULT_DATA };
+        document.getElementById('app-wrap').classList.remove('show');
+        document.getElementById('login-screen').classList.remove('hidden');
+        document.getElementById('header-user').style.display = 'none';
+    }
+
+    async function onUserLoggedIn(user) {
+        fbUser = user;
+
+        // Update header
+        const firstName = (user.displayName || '').split(' ')[0] || 'חברה';
+        document.getElementById('app-title').textContent = '💄 היומן של ' + firstName;
+        document.getElementById('header-name').textContent = firstName;
+        if (user.photoURL) {
+            document.getElementById('header-avatar').src = user.photoURL;
+        }
+        document.getElementById('header-user').style.display = 'flex';
+
+        // Set Firebase ref for this user
+        fbRef = fbDb.ref('libi_users/' + user.uid + '/data');
+
+        // Save profile
+        fbDb.ref('libi_users/' + user.uid + '/profile').update({
+            name: user.displayName || '',
+            email: user.email || '',
+            photoURL: user.photoURL || '',
+            lastSeen: firebase.database.ServerValue.TIMESTAMP
+        });
+
+        // Load data from Firebase
+        document.getElementById('login-status').textContent = 'טוענת את היומן שלך...';
+        try {
+            const snap = await fbRef.once('value');
+            if (snap.exists()) {
+                DATA = snap.val();
+                // Ensure all properties exist
+                if (!DATA.looks) DATA.looks = [];
+                if (!DATA.products) DATA.products = [];
+                if (!DATA.wishlist) DATA.wishlist = [];
+                if (!DATA.myLooks) DATA.myLooks = [];
+                if (!DATA.closet) DATA.closet = { items: [], outfitResults: [] };
+                if (!DATA.settings) DATA.settings = {};
+                localStorage.setItem(getStorageKey(), JSON.stringify(DATA));
+            } else {
+                // Try loading from localStorage (migration)
+                DATA = loadDataLocal();
+                await fbRef.set(DATA);
+            }
+        } catch(e) {
+            console.warn('Firebase load failed, using localStorage:', e);
+            DATA = loadDataLocal();
+        }
+
+        // Setup real-time listener
+        fbRef.on('value', snap => {
+            if (!snap.exists() || skipSync) return;
+            const remote = snap.val();
+            if (JSON.stringify(remote) === JSON.stringify(DATA)) return;
+            DATA = remote;
+            if (!DATA.looks) DATA.looks = [];
+            if (!DATA.products) DATA.products = [];
+            if (!DATA.closet) DATA.closet = { items: [], outfitResults: [] };
+            localStorage.setItem(getStorageKey(), JSON.stringify(DATA));
+            refreshApp();
+        });
+
+        // Show app
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('app-wrap').classList.add('show');
+        refreshApp();
+    }
+
+    function refreshApp() {
+        renderLooks();
+        renderProducts();
+        renderWishlist();
+        updateStats();
+    }
+
     // ===== INIT =====
-    renderLooks();
-    renderProducts();
-    renderWishlist();
-    updateStats();
+    document.addEventListener('DOMContentLoaded', function() {
+        // Init Firebase
+        if (typeof firebase !== 'undefined') {
+            try {
+                if (!firebase.apps.length) {
+                    fbApp = firebase.initializeApp(FB_CONFIG);
+                } else {
+                    fbApp = firebase.apps[0];
+                }
+                fbAuth = firebase.auth();
+                fbDb = firebase.database();
+                fbAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(() => {});
+
+                // Auth state listener
+                fbAuth.onAuthStateChanged(user => {
+                    if (user) {
+                        onUserLoggedIn(user);
+                    } else {
+                        document.getElementById('login-screen').classList.remove('hidden');
+                        document.getElementById('app-wrap').classList.remove('show');
+                    }
+                });
+
+                // Handle redirect result (mobile fallback)
+                fbAuth.getRedirectResult().catch(() => {});
+            } catch(e) {
+                console.warn('Firebase init error:', e);
+                // Fallback: run without auth
+                DATA = loadDataLocal();
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('app-wrap').classList.add('show');
+                refreshApp();
+            }
+        } else {
+            // No Firebase - run locally
+            DATA = loadDataLocal();
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('app-wrap').classList.add('show');
+            refreshApp();
+        }
+    });
     </script>
 </body>
 </html>
