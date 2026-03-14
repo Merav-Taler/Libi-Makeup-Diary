@@ -499,6 +499,83 @@
             color: #e74c3c;
         }
 
+        .look-action-btn.share {
+            background: #e8d5f5;
+            color: var(--purple);
+        }
+
+        .look-action-btn.share:hover {
+            background: #d4b8eb;
+        }
+
+        /* Share modal */
+        .share-preview {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+        }
+
+        .share-preview img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .share-preview-info {
+            padding: 14px;
+            text-align: center;
+        }
+
+        .share-preview-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .share-preview-stars {
+            direction: ltr;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .share-preview-tags {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .share-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .share-btn:hover { transform: scale(1.02); }
+
+        .share-btn.whatsapp { background: #25D366; color: white; }
+        .share-btn.instagram { background: linear-gradient(135deg, #833AB4, #E1306C, #F77737); color: white; }
+        .share-btn.copy-link { background: #f0e0f0; color: var(--purple); }
+        .share-btn.download { background: linear-gradient(135deg, var(--pink), var(--purple)); color: white; }
+
         /* ===== PRODUCTS SECTION ===== */
         .product-card {
             display: flex;
@@ -2432,6 +2509,132 @@
         }
     }
 
+    // ===== SHARE LOOK =====
+    function shareLook(id) {
+        const look = DATA.looks.find(l => l.id === id);
+        if (!look) return;
+
+        const userName = fbUser ? (fbUser.displayName || '').split(' ')[0] : '';
+        const shareText = `💄 ${look.name}${userName ? ' - מאת ' + userName : ''}\n${'⭐'.repeat(look.rating)}${'☆'.repeat(5 - look.rating)}\n${look.tags.length ? look.tags.join(' · ') : ''}${look.notes ? '\n' + look.notes : ''}`;
+
+        const modalHtml = `
+            <div style="max-width:400px">
+                <h2 style="text-align:center;color:var(--pink-dark);margin-bottom:16px">📤 שתפי את הלוק</h2>
+                <div class="share-preview">
+                    ${look.photo ? `<img src="${look.photo}" alt="${look.name}">` : ''}
+                    <div class="share-preview-info">
+                        <div class="share-preview-name">${look.name}</div>
+                        <div class="share-preview-stars">${'⭐'.repeat(look.rating)}${'☆'.repeat(5 - look.rating)}</div>
+                        <div class="share-preview-tags">
+                            ${look.tags.map(t => `<span class="look-tag">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+                <div class="share-btns">
+                    ${look.photo ? `<button class="share-btn download" onclick="downloadLookImage('${look.id}')">💾 הורידי תמונה לגלריה</button>` : ''}
+                    <button class="share-btn whatsapp" onclick="shareWhatsApp('${look.id}')">💬 שתפי בוואטסאפ</button>
+                    <button class="share-btn copy-link" onclick="copyLookText('${look.id}')">📋 העתיקי טקסט</button>
+                    <button class="share-btn" style="background:#f0e0f0;color:var(--text)" onclick="nativeShare('${look.id}')">📱 שיתוף...</button>
+                </div>
+                <div style="text-align:center;margin-top:14px">
+                    <button class="btn btn-secondary" onclick="closeModal()">סגירה</button>
+                </div>
+            </div>
+        `;
+        showModal(modalHtml);
+    }
+
+    function showModal(html) {
+        let overlay = document.getElementById('share-modal-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'share-modal-overlay';
+            overlay.className = 'form-overlay';
+            overlay.innerHTML = '<div class="form-card" id="share-modal-content"></div>';
+            overlay.addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+            document.body.appendChild(overlay);
+        }
+        document.getElementById('share-modal-content').innerHTML = html;
+        overlay.classList.add('show');
+    }
+
+    function closeModal() {
+        const overlay = document.getElementById('share-modal-overlay');
+        if (overlay) overlay.classList.remove('show');
+    }
+
+    function shareWhatsApp(id) {
+        const look = DATA.looks.find(l => l.id === id);
+        if (!look) return;
+        const userName = fbUser ? (fbUser.displayName || '').split(' ')[0] : '';
+        const text = `💄 *${look.name}*${userName ? ' - ' + userName : ''}\n${'⭐'.repeat(look.rating)}\n${look.tags.join(' · ')}${look.notes ? '\n📝 ' + look.notes : ''}\n\n✨ נוצר באפליקציית יומן האיפור`;
+        window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+        toast('נפתח וואטסאפ! 💬');
+    }
+
+    function copyLookText(id) {
+        const look = DATA.looks.find(l => l.id === id);
+        if (!look) return;
+        const userName = fbUser ? (fbUser.displayName || '').split(' ')[0] : '';
+        const text = `💄 ${look.name}${userName ? ' - ' + userName : ''}\n${'⭐'.repeat(look.rating)}${'☆'.repeat(5 - look.rating)}\n${look.tags.join(' · ')}${look.notes ? '\n📝 ' + look.notes : ''}`;
+        navigator.clipboard.writeText(text).then(() => {
+            toast('הטקסט הועתק! 📋');
+        }).catch(() => {
+            // Fallback
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            toast('הטקסט הועתק! 📋');
+        });
+    }
+
+    function downloadLookImage(id) {
+        const look = DATA.looks.find(l => l.id === id);
+        if (!look || !look.photo) return;
+        const a = document.createElement('a');
+        a.href = look.photo;
+        a.download = (look.name || 'look') + '.jpg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        toast('התמונה נשמרה! 💾');
+    }
+
+    async function nativeShare(id) {
+        const look = DATA.looks.find(l => l.id === id);
+        if (!look) return;
+        const userName = fbUser ? (fbUser.displayName || '').split(' ')[0] : '';
+        const text = `💄 ${look.name}${userName ? ' - ' + userName : ''}\n${'⭐'.repeat(look.rating)}\n${look.tags.join(' · ')}`;
+
+        if (navigator.share) {
+            const shareData = { title: '💄 ' + look.name, text };
+
+            // Try sharing with image
+            if (look.photo) {
+                try {
+                    const res = await fetch(look.photo);
+                    const blob = await res.blob();
+                    const file = new File([blob], (look.name || 'look') + '.jpg', { type: 'image/jpeg' });
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        shareData.files = [file];
+                    }
+                } catch(e) {}
+            }
+
+            try {
+                await navigator.share(shareData);
+                toast('שותף בהצלחה! ✨');
+            } catch(e) {
+                if (e.name !== 'AbortError') toast('השיתוף בוטל');
+            }
+        } else {
+            copyLookText(id);
+        }
+    }
+
     // ===== TOGGLE WISH DONE =====
     function toggleWishDone(id) {
         const wish = DATA.wishlist.find(w => w.id === id);
@@ -2513,6 +2716,7 @@
                         <button class="look-action-btn fav ${look.favorite ? 'active' : ''}" onclick="toggleFav('${look.id}')">
                             ${look.favorite ? '⭐ מועדף' : '☆ הוסיפי למועדפים'}
                         </button>
+                        <button class="look-action-btn share" onclick="shareLook('${look.id}')">📤 שיתוף</button>
                         <button class="look-action-btn delete" onclick="deleteLook('${look.id}')">🗑️ מחיקה</button>
                     </div>
                 </div>
@@ -2744,7 +2948,7 @@
         // Update generate button
         const genBtn = document.getElementById('generate-outfits-btn');
         const badge = document.getElementById('closet-count-badge');
-        const hasEnough = items.length >= 3;
+        const hasEnough = items.length >= 2;
         genBtn.disabled = !hasEnough;
         badge.textContent = `${items.length} פריטים`;
 
@@ -2807,19 +3011,32 @@
     function generateOutfits() {
         initCloset();
         const items = DATA.closet.items;
-        if (items.length < 3) { toast('הוסיפי לפחות 3 פריטים לארון! 👚👖👟'); return; }
+        if (items.length < 2) { toast('הוסיפי לפחות 2 פריטים לארון! 👚👖'); return; }
 
-        const tops = items.filter(i => i.category === 'tops');
-        const pants = items.filter(i => i.category === 'pants');
-        const dresses = items.filter(i => i.category === 'dresses');
-        const skirts = items.filter(i => i.category === 'skirts');
-        const shoes = items.filter(i => i.category === 'shoes');
-        const jackets = items.filter(i => i.category === 'jackets');
-        const accessories = items.filter(i => i.category === 'accessories');
-        const bags = items.filter(i => i.category === 'bags');
+        const byCategory = {};
+        CLOSET_CATS.forEach(c => byCategory[c.key] = items.filter(i => i.category === c.key));
 
+        const tops = byCategory['tops'];
+        const pants = byCategory['pants'];
+        const dresses = byCategory['dresses'];
+        const skirts = byCategory['skirts'];
+        const shoes = byCategory['shoes'];
+        const jackets = byCategory['jackets'];
+        const accessories = byCategory['accessories'];
+        const bags = byCategory['bags'];
         const bottoms = [...pants, ...skirts];
+
         const outfits = [];
+        const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+        // Helper: add extras (shoes, bags, accessories, jackets) to a combo
+        function addExtras(combo) {
+            if (shoes.length > 0 && !combo.some(c => c.category === 'shoes')) combo.push(pick(shoes));
+            if (bags.length > 0 && !combo.some(c => c.category === 'bags')) combo.push(pick(bags));
+            if (accessories.length > 0 && !combo.some(c => c.category === 'accessories')) combo.push(pick(accessories));
+            if (jackets.length > 0 && !combo.some(c => c.category === 'jackets') && Math.random() > 0.5) combo.push(pick(jackets));
+            return combo;
+        }
 
         const vibes = ['💫', '🌟', '✨', '🔥', '💕', '🌈', '👑', '🎀', '💎', '🌸'];
         const outfitNames = [
@@ -2828,40 +3045,47 @@
             'לוק ליום מיוחד', 'פשוט ומדהים', 'שיק בלי מאמץ', 'לוק מפתיע'
         ];
 
-        // Strategy 1: Top + Bottom combos
+        // Strategy 1: Top + Bottom combos (always include extras)
         if (tops.length > 0 && bottoms.length > 0) {
             for (let t = 0; t < tops.length && outfits.length < 6; t++) {
                 for (let b = 0; b < bottoms.length && outfits.length < 6; b++) {
-                    if (!colorsMatch(tops[t].color, bottoms[b].color) && Math.random() > 0.3) continue;
-                    const combo = [tops[t], bottoms[b]];
-                    // Add a shoe if available
-                    if (shoes.length > 0) {
-                        const shoe = shoes[Math.floor(Math.random() * shoes.length)];
-                        combo.push(shoe);
-                    }
-                    // Maybe add accessory
-                    if (accessories.length > 0 && Math.random() > 0.4) {
-                        const acc = accessories[Math.floor(Math.random() * accessories.length)];
-                        combo.push(acc);
-                    }
-                    // Maybe add jacket
-                    if (jackets.length > 0 && Math.random() > 0.6) {
-                        combo.push(jackets[Math.floor(Math.random() * jackets.length)]);
-                    }
+                    const combo = addExtras([tops[t], bottoms[b]]);
                     outfits.push(combo);
                 }
             }
         }
 
-        // Strategy 2: Dress combos
+        // Strategy 2: Dress combos (always include extras)
         if (dresses.length > 0) {
             for (const dress of dresses) {
                 if (outfits.length >= 8) break;
-                const combo = [dress];
-                if (shoes.length > 0) combo.push(shoes[Math.floor(Math.random() * shoes.length)]);
-                if (accessories.length > 0) combo.push(accessories[Math.floor(Math.random() * accessories.length)]);
-                if (bags.length > 0 && Math.random() > 0.5) combo.push(bags[Math.floor(Math.random() * bags.length)]);
+                const combo = addExtras([dress]);
                 outfits.push(combo);
+            }
+        }
+
+        // Strategy 3: Mix any available items when no traditional combos exist
+        if (outfits.length === 0 && items.length >= 2) {
+            const availableCats = Object.keys(byCategory).filter(k => byCategory[k].length > 0);
+            // Create combos from whatever items exist
+            const maxCombos = Math.min(5, items.length);
+            for (let i = 0; i < maxCombos; i++) {
+                const combo = [];
+                // Pick one item from each available category
+                availableCats.forEach(cat => {
+                    const catItems = byCategory[cat];
+                    if (catItems.length > 0) {
+                        const idx = (i + Math.floor(Math.random() * catItems.length)) % catItems.length;
+                        combo.push(catItems[idx]);
+                    }
+                });
+                // Only add if we have at least 2 items and it's not a duplicate
+                if (combo.length >= 2) {
+                    const key = combo.map(c => c.id).sort().join(',');
+                    if (!outfits.some(o => o.map(c => c.id).sort().join(',') === key)) {
+                        outfits.push(combo);
+                    }
+                }
             }
         }
 
@@ -2869,7 +3093,7 @@
         const shuffled = outfits.sort(() => Math.random() - 0.5).slice(0, 5);
 
         if (shuffled.length === 0) {
-            toast('צריך לפחות חולצה + מכנסיים או שמלה כדי ליצור לוקים! 👚👖');
+            toast('הוסיפי עוד פריטים מקטגוריות שונות! 👚👖👜');
             return;
         }
 
@@ -2926,6 +3150,12 @@
         }
         if (cats.includes('dresses')) {
             tips.push('👗 שמלה זה תמיד קל ויפה - אין מה לחשוב!');
+        }
+        if (cats.includes('bags')) {
+            tips.push('👜 תיק מתאים משלים את כל הלוק!');
+        }
+        if (cats.includes('shoes')) {
+            tips.push('👟 נעליים נכונות משנות את כל המראה!');
         }
 
         // Style tips
