@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#ff6b9d">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💄</text></svg>">
-    <title>💄 יומן האיפור שלי</title>
+    <title>💄 הסטייל של ליבי</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Varela+Round&display=swap" rel="stylesheet">
     <script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" crossorigin="anonymous"></script>
     <script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js" crossorigin="anonymous"></script>
@@ -1645,7 +1645,7 @@
     <!-- Login Screen -->
     <div class="login-screen" id="login-screen">
         <div class="login-logo">💄</div>
-        <div class="login-title">יומן האיפור שלי</div>
+        <div class="login-title">הסטייל של ליבי</div>
         <div class="login-sub">הלוקים, המוצרים והסטייל - הכל במקום אחד ✨</div>
         <button class="google-btn" id="google-btn" onclick="signInWithGoogle()">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
@@ -1659,7 +1659,7 @@
 
     <!-- Header -->
     <div class="header">
-        <h1 id="app-title">💄 היומן שלי</h1>
+        <h1 id="app-title">💄 הסטייל שלי</h1>
         <p>כל הלוקים, המוצרים והטיפים שלי ✨</p>
         <div class="stats-bar">
             <span class="stat-item" id="stat-looks">🎨 0 לוקים</span>
@@ -2567,7 +2567,7 @@
         const look = DATA.looks.find(l => l.id === id);
         if (!look) return;
         const userName = fbUser ? (fbUser.displayName || '').split(' ')[0] : '';
-        const text = `💄 *${look.name}*${userName ? ' - ' + userName : ''}\n${'⭐'.repeat(look.rating)}\n${look.tags.join(' · ')}${look.notes ? '\n📝 ' + look.notes : ''}\n\n✨ נוצר באפליקציית יומן האיפור`;
+        const text = `💄 *${look.name}*${userName ? ' - ' + userName : ''}\n${'⭐'.repeat(look.rating)}\n${look.tags.join(' · ')}${look.notes ? '\n📝 ' + look.notes : ''}\n\n✨ נוצר באפליקציית הסטייל של ליבי`;
         window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
         toast('נפתח וואטסאפ! 💬');
     }
@@ -3929,7 +3929,7 @@
 
         // Update header
         const firstName = (user.displayName || '').split(' ')[0] || 'חברה';
-        document.getElementById('app-title').textContent = '💄 היומן של ' + firstName;
+        document.getElementById('app-title').textContent = '💄 הסטייל של ' + firstName;
         document.getElementById('header-name').textContent = firstName;
         if (user.photoURL) {
             document.getElementById('header-avatar').src = user.photoURL;
@@ -3948,7 +3948,7 @@
         });
 
         // Load data from Firebase
-        document.getElementById('login-status').textContent = 'טוענת את היומן שלך...';
+        document.getElementById('login-status').textContent = 'טוענת את הסטייל שלך...';
         try {
             const snap = await fbRef.once('value');
             if (snap.exists()) {
