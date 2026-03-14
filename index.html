@@ -939,6 +939,215 @@
             transform: scale(1.02);
         }
 
+        /* ===== ADVISOR SECTION ===== */
+        .advisor-hero {
+            text-align: center;
+            padding: 20px 10px 10px;
+        }
+
+        .advisor-hero .advisor-emoji { font-size: 48px; margin-bottom: 8px; }
+        .advisor-hero h2 { font-size: 22px; color: var(--pink-dark); margin-bottom: 6px; }
+        .advisor-hero p { font-size: 14px; color: var(--text-light); }
+
+        .advisor-step {
+            background: white;
+            border-radius: var(--radius);
+            padding: 22px;
+            margin: 16px 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .advisor-step.hidden, .advisor-result.hidden, #adv-reset-wrap.hidden { display: none; }
+
+        .step-badge {
+            position: absolute;
+            top: -12px;
+            right: 18px;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 900;
+            box-shadow: 0 3px 10px rgba(232, 67, 147, 0.3);
+        }
+
+        .advisor-step h3 {
+            font-size: 17px;
+            color: var(--text);
+            margin-bottom: 14px;
+        }
+
+        .advisor-photo {
+            height: 220px;
+        }
+
+        .adv-question {
+            margin-bottom: 18px;
+        }
+
+        .adv-question label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .adv-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .adv-opt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 14px;
+            border: 2px solid #f0e0f0;
+            border-radius: 16px;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--text);
+            transition: all 0.3s;
+            min-width: 70px;
+        }
+
+        .adv-opt:hover { border-color: #e0c0e0; background: #fdf0fa; }
+
+        .adv-opt.selected {
+            border-color: var(--pink);
+            background: var(--pink-light);
+            transform: scale(1.05);
+            box-shadow: 0 3px 12px rgba(232, 67, 147, 0.2);
+        }
+
+        .adv-opt-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.8);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .adv-occasion-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .adv-occasion-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 18px 8px;
+            border: 2px solid #f0e0f0;
+            border-radius: 16px;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .adv-occasion-card:hover { border-color: #e0c0e0; transform: scale(1.03); }
+
+        .adv-occasion-card.selected {
+            border-color: var(--pink);
+            background: var(--pink-light);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.2);
+        }
+
+        .adv-occ-emoji { font-size: 32px; }
+        .adv-occ-label { font-size: 12px; font-weight: 500; color: var(--text); text-align: center; }
+
+        /* Advisor Result Card */
+        .advisor-result {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 8px 30px rgba(232, 67, 147, 0.2);
+            animation: slideUp 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .adv-result-header {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .adv-result-header h2 { font-size: 20px; margin-bottom: 4px; }
+        .adv-result-header p { font-size: 13px; opacity: 0.9; }
+
+        .adv-result-photo {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .adv-result-body { padding: 20px; }
+
+        .adv-result-section {
+            margin-bottom: 18px;
+        }
+
+        .adv-result-section h4 {
+            font-size: 15px;
+            color: var(--purple);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .adv-rec-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 10px 14px;
+            background: #fdf8fc;
+            border-radius: 14px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .adv-rec-emoji { font-size: 20px; flex-shrink: 0; }
+
+        .adv-rec-detail {
+            flex: 1;
+        }
+
+        .adv-rec-title {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .adv-rec-desc {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .adv-result-save {
+            text-align: center;
+            padding: 16px;
+            border-top: 1px solid #f5e5f5;
+        }
+
         @media (max-width: 600px) {
             .my-look-top { flex-direction: column; }
             .my-look-outfit-photo { width: 100%; height: 200px; }
@@ -946,6 +1155,10 @@
             .tabs { flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
             .tab-btn { padding: 8px 14px; font-size: 12px; flex-shrink: 0; }
             .outfit-img-container { height: 200px; }
+            .adv-occasion-grid { grid-template-columns: repeat(2, 1fr); }
+            .adv-opt { min-width: 60px; padding: 8px 10px; }
+            .adv-opt-circle { width: 30px; height: 30px; }
+            .adv-result-photo { height: 200px; }
         }
 
         /* ===== FILTER BAR ===== */
@@ -1082,6 +1295,7 @@
     <!-- Tabs -->
     <div class="tabs">
         <button class="tab-btn active" onclick="switchTab('looks')">🎨 הלוקים שלי</button>
+        <button class="tab-btn" onclick="switchTab('advisor')">🪞 יועצת איפור</button>
         <button class="tab-btn" onclick="switchTab('products')">💄 מוצרים</button>
         <button class="tab-btn" onclick="switchTab('wishlist')">🎁 רשימת משאלות</button>
         <button class="tab-btn" onclick="switchTab('outfits')">👗 איפור + לבוש</button>
@@ -1096,6 +1310,170 @@
 
             <div class="filter-bar" id="looks-filters"></div>
             <div id="looks-list"></div>
+        </div>
+
+        <!-- ADVISOR SECTION -->
+        <div class="section" id="sec-advisor">
+            <div class="advisor-hero">
+                <div class="advisor-emoji">🪞✨</div>
+                <h2>יועצת האיפור האישית שלך</h2>
+                <p>העלי תמונה, ספרי לי קצת על עצמך - ותקבלי רעיון לאיפור מותאם!</p>
+            </div>
+
+            <!-- Step 1: Photo -->
+            <div class="advisor-step" id="adv-step-1">
+                <div class="step-badge">1</div>
+                <h3>📸 העלי תמונה שלך</h3>
+                <div class="photo-upload advisor-photo" id="advisor-photo-upload" onclick="document.getElementById('advisor-photo-input').click()">
+                    <div class="upload-text">🤳</div>
+                    <div class="upload-label">לחצי לצילום סלפי או העלאת תמונה</div>
+                    <input type="file" id="advisor-photo-input" accept="image/*" capture="user" onchange="previewPhoto(this, 'advisor-photo-upload'); advNextStep(2)">
+                </div>
+            </div>
+
+            <!-- Step 2: About you -->
+            <div class="advisor-step hidden" id="adv-step-2">
+                <div class="step-badge">2</div>
+                <h3>🎨 ספרי לי על עצמך</h3>
+
+                <div class="adv-question">
+                    <label>גוון העור שלך:</label>
+                    <div class="adv-options" id="adv-skin">
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="בהיר">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#FDEBD0,#FAD7A0)"></span>
+                            <span>בהיר</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="בינוני">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#E8C39E,#D4A574)"></span>
+                            <span>בינוני</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="זית">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#C9A96E,#B8945A)"></span>
+                            <span>זית</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="כהה">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#A0785A,#8B6544)"></span>
+                            <span>כהה</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="adv-question">
+                    <label>צבע העיניים:</label>
+                    <div class="adv-options" id="adv-eyes">
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="חומות">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#8B4513,#A0522D)"></span>
+                            <span>חומות</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="ירוקות">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#558B2F,#7CB342)"></span>
+                            <span>ירוקות</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="כחולות">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#1976D2,#42A5F5)"></span>
+                            <span>כחולות</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="אגוז/דבש">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#BF8040,#D4A855)"></span>
+                            <span>אגוז/דבש</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="adv-question">
+                    <label>צבע השיער:</label>
+                    <div class="adv-options" id="adv-hair">
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="בלונדיני">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#F0D58C,#DAB04A)"></span>
+                            <span>בלונדיני</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="חום">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#8B6914,#6B4F12)"></span>
+                            <span>חום</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="שחור">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#2C2C2C,#1A1A1A)"></span>
+                            <span>שחור</span>
+                        </button>
+                        <button class="adv-opt" onclick="advSelect(this)" data-val="ג׳ינג׳י">
+                            <span class="adv-opt-circle" style="background:linear-gradient(135deg,#D4440F,#E86A33)"></span>
+                            <span>ג'ינג'י</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Occasion -->
+            <div class="advisor-step hidden" id="adv-step-3">
+                <div class="step-badge">3</div>
+                <h3>📍 לאן את מתאפרת?</h3>
+                <div class="adv-occasion-grid" id="adv-occasion">
+                    <button class="adv-occasion-card" onclick="advSelectOccasion(this)" data-val="יומיומי">
+                        <span class="adv-occ-emoji">🏫</span>
+                        <span class="adv-occ-label">יומיומי / בית ספר</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectOccasion(this)" data-val="מסיבה">
+                        <span class="adv-occ-emoji">🎉</span>
+                        <span class="adv-occ-label">מסיבה</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectOccasion(this)" data-val="אירוע">
+                        <span class="adv-occ-emoji">👗</span>
+                        <span class="adv-occ-label">אירוע / חג</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectOccasion(this)" data-val="בית">
+                        <span class="adv-occ-emoji">🏠</span>
+                        <span class="adv-occ-label">סתם בבית לכיף</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectOccasion(this)" data-val="צילום">
+                        <span class="adv-occ-emoji">📸</span>
+                        <span class="adv-occ-label">צילום / סלפי</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectOccasion(this)" data-val="יצירתי">
+                        <span class="adv-occ-emoji">🎨</span>
+                        <span class="adv-occ-label">משהו יצירתי / מטורף</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Style preference -->
+            <div class="advisor-step hidden" id="adv-step-4">
+                <div class="step-badge">4</div>
+                <h3>💕 מה המצב רוח שלך היום?</h3>
+                <div class="adv-occasion-grid" id="adv-mood">
+                    <button class="adv-occasion-card" onclick="advSelectMood(this)" data-val="טבעי">
+                        <span class="adv-occ-emoji">🌿</span>
+                        <span class="adv-occ-label">טבעי ורענן</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectMood(this)" data-val="נסיכותי">
+                        <span class="adv-occ-emoji">👑</span>
+                        <span class="adv-occ-label">נסיכותי</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectMood(this)" data-val="מגניב">
+                        <span class="adv-occ-emoji">😎</span>
+                        <span class="adv-occ-label">מגניב ושיקי</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectMood(this)" data-val="צבעוני">
+                        <span class="adv-occ-emoji">🌈</span>
+                        <span class="adv-occ-label">צבעוני ומשוגע</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectMood(this)" data-val="רומנטי">
+                        <span class="adv-occ-emoji">🌸</span>
+                        <span class="adv-occ-label">רומנטי ורך</span>
+                    </button>
+                    <button class="adv-occasion-card" onclick="advSelectMood(this)" data-val="דרמטי">
+                        <span class="adv-occ-emoji">🔥</span>
+                        <span class="adv-occ-label">דרמטי ובולט</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="advisor-result hidden" id="adv-result"></div>
+
+            <!-- Reset -->
+            <div class="hidden" id="adv-reset-wrap" style="text-align:center;margin-top:16px">
+                <button class="btn btn-secondary" onclick="resetAdvisor()">🔄 רוצה עוד רעיון</button>
+            </div>
         </div>
 
         <!-- PRODUCTS SECTION -->
@@ -1807,6 +2185,204 @@
                 <p>${tip.text}</p>
             </div>
         `).join('');
+    }
+
+    // ===== MAKEUP ADVISOR =====
+    let advChoices = { skin: '', eyes: '', hair: '', occasion: '', mood: '' };
+
+    function advNextStep(step) {
+        const el = document.getElementById('adv-step-' + step);
+        if (el) { el.classList.remove('hidden'); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    }
+
+    function advSelect(btn) {
+        const group = btn.closest('.adv-options');
+        group.querySelectorAll('.adv-opt').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+
+        // Track which group
+        if (group.id === 'adv-skin') advChoices.skin = btn.dataset.val;
+        if (group.id === 'adv-eyes') advChoices.eyes = btn.dataset.val;
+        if (group.id === 'adv-hair') advChoices.hair = btn.dataset.val;
+
+        // If all 3 answered, show step 3
+        if (advChoices.skin && advChoices.eyes && advChoices.hair) {
+            advNextStep(3);
+        }
+    }
+
+    function advSelectOccasion(btn) {
+        btn.closest('.adv-occasion-grid').querySelectorAll('.adv-occasion-card').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        advChoices.occasion = btn.dataset.val;
+        advNextStep(4);
+    }
+
+    function advSelectMood(btn) {
+        btn.closest('.adv-occasion-grid').querySelectorAll('.adv-occasion-card').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        advChoices.mood = btn.dataset.val;
+        generateAdvice();
+    }
+
+    function generateAdvice() {
+        const { skin, eyes, hair, occasion, mood } = advChoices;
+        const img = document.getElementById('advisor-photo-upload').querySelector('img');
+        const photo = img ? img.src : '';
+
+        // Build personalized recommendations
+        const recs = { lips: [], eyes: [], cheeks: [], extras: [], tip: '' };
+
+        // === LIPS based on skin + mood ===
+        const lipsMap = {
+            'טבעי': { 'בהיר': 'גלוס שקוף עם שימר קל', 'בינוני': 'גלוס ורוד בהיר', 'זית': 'שפתון נוד אפרסקי', 'כהה': 'גלוס עם גוון קרמל' },
+            'נסיכותי': { 'בהיר': 'גלוס ורוד ניאון מנצנץ', 'בינוני': 'שפתון ורוד פוקסיה', 'זית': 'שפתון ורוד-סגלגל', 'כהה': 'גלוס ורוד עם שימר זהב' },
+            'מגניב': { 'בהיר': 'שפתון נוד מט', 'בינוני': 'שפתון מאוב (ורוד-חום)', 'זית': 'שפתון ברי (berry)', 'כהה': 'שפתון שזיף כהה' },
+            'צבעוני': { 'בהיר': 'שפתון כתום או קורל', 'בינוני': 'גלוס אדום נוצץ', 'זית': 'שפתון פוקסיה', 'כהה': 'שפתון אדום עז' },
+            'רומנטי': { 'בהיר': 'גלוס ורוד תינוקי', 'בינוני': 'שפתון ורוד רך', 'זית': 'שפתון ורוד-אפרסק', 'כהה': 'גלוס ורוד עמוק' },
+            'דרמטי': { 'בהיר': 'שפתון אדום קלאסי', 'בינוני': 'שפתון בורדו', 'זית': 'שפתון אדום כהה', 'כהה': 'שפתון שזיף או בורגנדי' }
+        };
+        recs.lips = [
+            { title: lipsMap[mood]?.[skin] || 'גלוס ורוד', desc: 'מתאים לגוון העור שלך ולמצב הרוח' }
+        ];
+
+        // === EYES based on eye color + mood ===
+        const eyeColorTips = {
+            'חומות': { comp: 'סגול, זהב, ירוק', best: 'זהובה-חומה', glam: 'סגולה כהה' },
+            'ירוקות': { comp: 'סגול, ורוד, חום-אדמדם', best: 'ורודה-חום', glam: 'אדמדמה-שזיף' },
+            'כחולות': { comp: 'כתום, חום, אפרסק', best: 'כתום-נחושת', glam: 'חום-זהב' },
+            'אגוז/דבש': { comp: 'סגול, ירוק כהה, ורוד', best: 'סגולה רכה', glam: 'ירוקה כהה' }
+        };
+        const eyeInfo = eyeColorTips[eyes] || eyeColorTips['חומות'];
+
+        const eyesMoodMap = {
+            'טבעי': { title: `צללית ${eyeInfo.best}`, desc: `גוון רך על כל העפעף + מסקרה. הצבעים שהכי מבליטים עיניים ${eyes}: ${eyeInfo.comp}` },
+            'נסיכותי': { title: `צללית ורודה-זהובה עם שימר`, desc: `ורוד על העפעף + זהב בפינה + מסקרה כפולה. מבליט עיניים ${eyes} בצורה קסומה!` },
+            'מגניב': { title: `אייליינר דק + צללית ${eyeInfo.best}`, desc: 'קו עדין בעפעף העליון + מסקרה. מראה חתולי מגניב' },
+            'צבעוני': { title: `צללית ${eyeInfo.glam} + גליטר`, desc: `שכבת צבע על העפעף + גליטר בפינה הפנימית. הצבעים ${eyeInfo.comp} יבליטו את העיניים שלך!` },
+            'רומנטי': { title: `צללית ורודה-אפרסקית`, desc: `גוון רך על העפעף + חום בקמט + מסקרה. עיניים ${eyes} יראו חלומיות!` },
+            'דרמטי': { title: `סמוקי ${eyeInfo.glam}`, desc: `שכבות צבע מהבהיר לכהה + אייליינר מודגש + מסקרה כפולה. דרמה!` }
+        };
+        recs.eyes = [eyesMoodMap[mood] || eyesMoodMap['טבעי']];
+
+        // === CHEEKS based on skin ===
+        const cheeksMap = {
+            'בהיר': { 'טבעי': 'סומק ורוד בהיר', 'נסיכותי': 'סומק ורוד עז', 'מגניב': 'ברונזר קל', 'צבעוני': 'סומק כתום-קורל', 'רומנטי': 'סומק ורוד-אפרסק', 'דרמטי': 'סומק פוקסיה + קונטור' },
+            'בינוני': { 'טבעי': 'סומק אפרסק', 'נסיכותי': 'סומק ורוד-זהוב', 'מגניב': 'ברונזר', 'צבעוני': 'סומק קורל', 'רומנטי': 'סומק אפרסק רך', 'דרמטי': 'סומק + קונטור' },
+            'זית': { 'טבעי': 'סומק אפרסק חם', 'נסיכותי': 'סומק ורוד-קורל', 'מגניב': 'ברונזר זהוב', 'צבעוני': 'סומק כתום', 'רומנטי': 'סומק אפרסק-ורוד', 'דרמטי': 'ברונזר + סומק עמוק' },
+            'כהה': { 'טבעי': 'סומק קורל חם', 'נסיכותי': 'סומק ורוד עמוק', 'מגניב': 'ברונזר זהוב', 'צבעוני': 'סומק אדום-כתום', 'רומנטי': 'סומק שזיף רך', 'דרמטי': 'ברונזר כהה + סומק עמוק' }
+        };
+        recs.cheeks = [{ title: cheeksMap[skin]?.[mood] || 'סומק ורוד', desc: 'על תפוחי הלחיים בתנועה עגולה' }];
+
+        // === EXTRAS ===
+        const extrasMap = {
+            'טבעי': [{ title: 'קצת מסקרה ופרייימר', desc: 'פחות זה יותר! מראה רענן ובריא' }],
+            'נסיכותי': [{ title: 'היילייטר על עצמות הלחיים + קצה האף', desc: 'נוצצת כמו נסיכה! ✨' }],
+            'מגניב': [{ title: 'עפרון גבות מסודר', desc: 'גבות מסודרות = הבסיס ללוק מגניב' }],
+            'צבעוני': [{ title: 'גליטר / סטיקרים לפנים', desc: 'אל תפחדי להשתגע! נקודות גליטר ליד העין או על הלחי' }],
+            'רומנטי': [{ title: 'היילייטר קל + שפתון לחות', desc: 'עור זוהר ורך - מראה חלומי' }],
+            'דרמטי': [{ title: 'ריסים מודגשים + היילייטר', desc: '2-3 שכבות מסקרה + היילייטר = WOW' }]
+        };
+        recs.extras = extrasMap[mood] || extrasMap['טבעי'];
+
+        // === HAIR TIP ===
+        const hairTips = {
+            'בלונדיני': 'עם שיער בלונדיני, גווני ורוד ואפרסק נראים מעולה! אפשר גם סגול רך.',
+            'חום': 'שיער חום הוא הכי גמיש - כמעט כל צבע איפור מתאים! זהב וחום תמיד טוב.',
+            'שחור': 'שיער שחור מבליט איפור מאוד - גם גוונים רכים יראו דרמטיים. נצלי את זה!',
+            'ג׳ינג׳י': 'עם שיער ג\'ינג\'י - הימנעי מורוד חזק. עדיפים גווני אפרסק, חום-זהב, וירוק.'
+        };
+        recs.tip = hairTips[hair] || '';
+
+        // Occasion adjustments
+        const occasionTip = {
+            'יומיומי': '💡 לוק יומיומי - שמרי על זה קל! 2-3 מוצרים ומספיק.',
+            'מסיבה': '💡 למסיבה אפשר להוסיף עוד שכבה של גליטר ושימר!',
+            'אירוע': '💡 לאירוע - תעשי את הלוק בבית קודם לנסות, ואז במהירות לפני.',
+            'בית': '💡 בבית זה הזמן להתנסות! תנסי דברים חדשים בלי לחץ.',
+            'צילום': '💡 לצילום - שימי קצת יותר מהרגיל, כי המצלמה "אוכלת" איפור.',
+            'יצירתי': '💡 אין חוקים! תערבבי צבעים, תנסי דברים מטורפים. זה כל הכיף!'
+        };
+
+        // Build result HTML
+        const resultEl = document.getElementById('adv-result');
+        resultEl.classList.remove('hidden');
+        resultEl.innerHTML = `
+            <div class="adv-result-header">
+                <h2>✨ הלוק המומלץ שלך ✨</h2>
+                <p>${mood} · ${occasion}</p>
+            </div>
+            ${photo ? `<img class="adv-result-photo" src="${photo}" alt="התמונה שלך">` : ''}
+            <div class="adv-result-body">
+                <div class="adv-result-section">
+                    <h4>💄 שפתיים</h4>
+                    ${recs.lips.map(r => `<div class="adv-rec-item"><span class="adv-rec-emoji">💋</span><div class="adv-rec-detail"><div class="adv-rec-title">${r.title}</div><div class="adv-rec-desc">${r.desc}</div></div></div>`).join('')}
+                </div>
+                <div class="adv-result-section">
+                    <h4>👁️ עיניים</h4>
+                    ${recs.eyes.map(r => `<div class="adv-rec-item"><span class="adv-rec-emoji">👁️</span><div class="adv-rec-detail"><div class="adv-rec-title">${r.title}</div><div class="adv-rec-desc">${r.desc}</div></div></div>`).join('')}
+                </div>
+                <div class="adv-result-section">
+                    <h4>💗 לחיים</h4>
+                    ${recs.cheeks.map(r => `<div class="adv-rec-item"><span class="adv-rec-emoji">💗</span><div class="adv-rec-detail"><div class="adv-rec-title">${r.title}</div><div class="adv-rec-desc">${r.desc}</div></div></div>`).join('')}
+                </div>
+                <div class="adv-result-section">
+                    <h4>✨ תוספות</h4>
+                    ${recs.extras.map(r => `<div class="adv-rec-item"><span class="adv-rec-emoji">✨</span><div class="adv-rec-detail"><div class="adv-rec-title">${r.title}</div><div class="adv-rec-desc">${r.desc}</div></div></div>`).join('')}
+                </div>
+                ${recs.tip ? `<div class="adv-rec-item" style="background:linear-gradient(135deg,#fff5f9,#f5e8ff)"><span class="adv-rec-emoji">💇‍♀️</span><div class="adv-rec-detail"><div class="adv-rec-desc">${recs.tip}</div></div></div>` : ''}
+                <div class="adv-rec-item" style="background:linear-gradient(135deg,#f0f8ff,#fff5f9);margin-top:8px"><span class="adv-rec-emoji">📍</span><div class="adv-rec-detail"><div class="adv-rec-desc">${occasionTip[occasion] || ''}</div></div></div>
+            </div>
+            <div class="adv-result-save">
+                <button class="btn btn-primary" onclick="saveAdvisorLook()">💾 שמרי את הלוק הזה!</button>
+            </div>
+        `;
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        document.getElementById('adv-reset-wrap').classList.remove('hidden');
+        miniConfetti();
+    }
+
+    function saveAdvisorLook() {
+        const { skin, eyes, hair, occasion, mood } = advChoices;
+        const img = document.getElementById('advisor-photo-upload').querySelector('img');
+        const photo = img ? img.src : '';
+
+        const resultText = document.querySelector('.adv-result-body')?.innerText || '';
+
+        const look = {
+            id: 'look_' + Date.now(),
+            name: `לוק ${mood} - ${occasion}`,
+            date: new Date().toISOString().split('T')[0],
+            rating: 0,
+            tags: [mood, occasion],
+            notes: `🪞 הומלץ ע״י יועצת האיפור\nעור: ${skin} | עיניים: ${eyes} | שיער: ${hair}\n\n${resultText.substring(0, 300)}`,
+            photo,
+            favorite: false,
+            createdAt: Date.now()
+        };
+
+        DATA.looks.unshift(look);
+        saveData();
+        toast('הלוק נשמר בגלריה שלך! 🎨');
+    }
+
+    function resetAdvisor() {
+        advChoices = { skin: '', eyes: '', hair: '', occasion: '', mood: '' };
+        ['adv-step-2','adv-step-3','adv-step-4','adv-result','adv-reset-wrap'].forEach(id => {
+            document.getElementById(id).classList.add('hidden');
+        });
+        // Reset selections
+        document.querySelectorAll('#sec-advisor .adv-opt, #sec-advisor .adv-occasion-card').forEach(b => b.classList.remove('selected'));
+        // Reset photo
+        const photoContainer = document.getElementById('advisor-photo-upload');
+        const existingImg = photoContainer.querySelector('img');
+        if (existingImg) existingImg.remove();
+        photoContainer.querySelector('.upload-text').style.display = '';
+        photoContainer.querySelector('.upload-label').style.display = '';
+        document.getElementById('advisor-photo-input').value = '';
+
+        document.getElementById('adv-step-1').scrollIntoView({ behavior: 'smooth' });
     }
 
     // ===== BUILD MY LOOK =====
